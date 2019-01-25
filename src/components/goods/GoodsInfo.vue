@@ -27,7 +27,7 @@
 						<p class="price">
                             市场价:<del>{{ goodsinfo.privilegePrice}}</del>&nbsp;&nbsp;销售价:<span class='now_price'>{{ goodsinfo.price }}</span>
                         </p>
-                        <p>购买数量:  <numbox class="num-box" @getCount="getSelectedCount" :maxCount="goodsinfo.clickRate"></numbox></p>
+                        <p>购买数量:  <numbox class="numbox" @getCount="getSelectedCount" :maxCount="goodsinfo.clickRate"></numbox></p>
                         <p>
                             <mt-button type='primary' size='small'>立即购买</mt-button>
                              <mt-button type='danger' size='small' @click="addToShopcar">加入购物车</mt-button>
@@ -108,7 +108,15 @@ export default {
         },
         addToShopcar(){
             this.ballFlag = !this.ballFlag
-        },
+            var goodsInfo = {
+                id: this.id, 
+                count: this.selectedCount, 
+                price: this.goodsinfo.price,
+                selected:true
+                }
+            
+            this.$store.commit('addToCar',goodsInfo)
+         },
         beforeEnter(el){
             el.style.transform="translate(0,0)"
         },

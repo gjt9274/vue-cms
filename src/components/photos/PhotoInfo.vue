@@ -95,7 +95,7 @@ export default {
         justify-content: space-between;
         font-size: 13px;
     }
-    .content{
+      .content{
         .avatar{
             border-radius: 50%;
         }

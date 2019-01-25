@@ -11,7 +11,7 @@ import mui from '../../lib/mui/js/mui.min.js'
 export default {
         mounted(){
         //初始化数字选择框组件
-        mui('num-box').numbox()
+            mui('.mui-numbox').numbox()
         },
         methods:{
             countChanged(){
