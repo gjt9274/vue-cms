@@ -4,7 +4,7 @@
         <h3 class="title">{{newsinfo.title}}</h3>
         <!-- 子标题 -->
         <p class='subtitle'>
-            <span>发表时间: {{new Date() | dateFormat}}</span>
+            <span>发表时间: {{ Date.now() | dateFormat}}</span>
             <span>点击次数: 0 次</span>
         </p>
 
@@ -33,13 +33,14 @@ export default {
     },
     methods:{
         getNesInfo(){//获取新闻详情
-             this.$http.get('api/4/news/'+this.id).then(result=>{
-                if(result.status === 200 ){
+
+            this.$http.get(`api/4/news/${this.id}`).then(result=>{
+                if(result.status == 200){
+                    // console.log(result)
                     this.newsinfo = result.body
-                }else{
-                   Toast('新闻资讯获取失败')
                 }
             })
+  
         }
     },
     components:{
@@ -64,6 +65,9 @@ export default {
         justify-content:space-between
     }
     .content{
+        .avatar{
+            border-radius: 50%;
+        }
         .content-image{
             width:100%
         }

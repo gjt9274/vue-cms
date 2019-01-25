@@ -1,13 +1,13 @@
 <template>
     <div>
         <ul class="mui-table-view" >
-				<li class="mui-table-view-cell mui-media" v-for="(item,i) in newslist" :key="i">
+				<li class="mui-table-view-cell mui-media" v-for="item in newslist" :key="item.id">
 					<router-link :to ="'/home/newsinfo/'+item.id">
-						<img class="mui-media-object mui-pull-left" :src="typeof(item.image)=='undefined'?item.images:item.image">
+						<img class="mui-media-object mui-pull-left" :src=" item.images[0] ">
 						<div class="mui-media-body">
 							<h1>{{item.title}}</h1>
 							<p class='mui-ellipsis'>
-                                <span>发表时间:{{ new Date() | dateFormat }}</span>
+                                <span>发表时间:{{ Date.now() | dateFormat }}</span>
                                 <span>点击:0次</span>
                             </p>
 						</div>
@@ -33,9 +33,8 @@ export default {
         getNewsList(){//获取新闻列表数据
             this.$http.get('api/4/news/latest').then(result=>{
                 console.log(result.body)
-                if(result.status === 200 ){
+                if(result.status == 200 ){
                     this.newslist = result.body.stories
-                    this.newslist = this.newslist.concat(result.body.top_stories)
                 }else{
                    Toast('新闻资讯获取失败')
                 }

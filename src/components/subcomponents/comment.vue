@@ -2,8 +2,8 @@
     <div class='cmt-container'>   
         <h3>发表评论</h3>
         <hr>
-        <textarea placeholder="请输入要评论的内容（字数限制：200字）" maxlength="200"></textarea>
-        <mt-button type='primary' size="large">发表评论</mt-button>
+        <textarea placeholder="请输入要评论的内容（字数限制：200字）" maxlength="200" v-model="msg"></textarea>
+        <mt-button type='primary' size="large" @click='postComments'>发表评论</mt-button>
         <div class="cmt-list">
             <div class="cmt-item"  v-for="(item,index) in comments" :key='item.id' >
                 <div class="cmt-title">
@@ -23,7 +23,8 @@ import {Toast} from 'mint-ui'
 export default {
     data(){
         return {
-            comments:[]
+            comments:[],
+            msg:[], //评论输入的内容
         }
     },
     created(){
@@ -31,7 +32,7 @@ export default {
     },
     methods: {
         getComments(){
-            this.$http.get('api/4/story/'+this.id+'/short-comments').then(result=>{
+            this.$http.get(`api/4/story/${this.id}/short-comments`).then(result=>{
                 if(result.status == 200){
                     // console.log(result.body)
                     this.comments = result.body.comments
@@ -42,15 +43,33 @@ export default {
             })
         },
         getMore(){
-            this.$http.get('api/4/story/'+this.id+'/long-comments').then(result=>{
+            this.$http.get(`api/4/story/${this.id}/long-comments`).then(result=>{
                  if(result.status == 200){
-                     if(result.body.comments.length == 0) return Toast('没有更多评论')
-                    this.comments = this.comments.concat(result.body.comments)
-                   
+                     if(result.body.comments.length ==0 ) return Toast('没有更多评论')
+                    this.comments = this.comments.concat(result.body.comments)                
                 }else{
                     Toast('加载失败')
                 }
             })
+
+        },
+        postComments(){
+            //校验是否为空
+            if(this.msg.trim().length===0 ){
+                return Toast('评论内容是否为空！')
+            }
+            //发表评论
+            // this.$http.post('url')
+            // .then(result=>{
+            //     console.log(result)
+            //     if(result.ret==200){
+            //         var cmt = {author:'匿名用户',time:Date.now(),content:this.msg.trim()}
+            //         this.comments.unshift(cmt)
+            //         this.msg=""
+            //     }
+            // })
+            var cmt = {author:'匿名用户',time:Date.now(),content:this.msg.trim()}
+            this.comments.unshift(cmt)
         }
     },
     props: ["id"]
