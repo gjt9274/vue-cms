@@ -39,7 +39,6 @@
                 </div>
             </div>
         </div>
-        {{ $store.getters.getGoodsSelected }}
     </div>
 </template>
 
