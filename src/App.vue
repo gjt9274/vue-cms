@@ -36,11 +36,15 @@
 </template>
 
 <script>
+import mui from './lib/mui/js/mui.min.js'
 export default{
 	date(){
 		return {
 			flag:false
 		}
+	},
+	mounted(){
+		 mui('body').on('tap','a',function(){document.location.href=this.href;});  
 	},
 	created(){
 		this.flag = this.$route.path === "/home" ? false : true
