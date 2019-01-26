@@ -5,8 +5,8 @@
            <div class="mui-card"  v-for="(item , index) in goodslist" :key="item.result.id">
             <div class="mui-card-content" >
                 <div class="mui-card-content-inner">
-                    <mt-switch  v-model="$store.getters.getGoodsSelected[item.id]"
-                    @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"></mt-switch>
+                    <mt-switch  v-model="$store.getters.getGoodsSelected[item.result.id]"
+                    @change="selectedChanged(item.result.id,$store.getters.getGoodsSelected[item.result.id])"></mt-switch>
                     <img :src="item.result.imgUrl" alt="">
                    
                     <div class="info">
@@ -95,7 +95,7 @@ export default {
              this.$store.commit('removeFromCar',id)
         },
 
-        //每当点击开关，把最新的开关状态同步道strore中
+        //每当点击开关，把最新的开关状态同步到strore中
         selectedChanged(id,selected){
             this.$store.commit('updateGoodsSelecte',{id,selected})
         }
