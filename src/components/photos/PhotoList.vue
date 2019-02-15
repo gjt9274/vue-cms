@@ -1,15 +1,14 @@
 <template>
     <div>
        <!-- 顶部滑动条区域 -->
-            <div id="slider" class="mui-slider">
+        <div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll">
-						<a :class="['mui-control-item', item.id==0?'mui-active':'']" v-for="item in cates" :key="item.id" @tap='getPhotoListByCateName(item.id==0?1:item.id)'>
+						<li :class="['mui-control-item', item.id==0?'mui-active':'']" v-for="item in cates" :key="item.id" @tap='getPhotoListByCateName(item.id==0?1:item.id)'>
 							{{ item.name }}
-						</a>
+						</li>
 					</div>
 				</div>
-
 			</div>
 
 
